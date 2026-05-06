@@ -214,16 +214,7 @@ web: gunicorn app:app
 
 8. Copy the generated Railway domain and add it to the Live Demo section.
 
-## Submission Checklist
 
-- Live Railway URL
-- GitHub repository URL
-- README
-- 2-5 minute demo video showing signup/login, project creation, member assignment, task creation, status updates, and dashboard.
-# TASK_MANAGER
--
-- Structured README file
-- 2-5 minute demo video
 
 
 
