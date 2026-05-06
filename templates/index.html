@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Team Task Manager</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section id="authView" class="auth-layout">
+        <div class="brand-panel">
+          <p class="eyebrow">Team Task Manager</p>
+          <h1>Projects, ownership, and delivery status in one workspace.</h1>
+          <p>Admins create teams and assign work. Members track their own tasks, update progress, and spot overdue items fast.</p>
+        </div>
+        <form id="authForm" class="panel auth-card">
+          <div class="form-head">
+            <h2 id="authTitle">Log in</h2>
+            <button type="button" id="toggleAuth" class="text-button">Create account</button>
+          </div>
+          <label id="nameField" class="hidden">
+            Name
+            <input name="name" autocomplete="name">
+          </label>
+          <label>
+            Email
+            <input name="email" type="email" autocomplete="email" required>
+          </label>
+          <label>
+            Password
+            <input name="password" type="password" minlength="6" autocomplete="current-password" required>
+          </label>
+          <label id="roleField" class="hidden">
+            Role
+            <select name="role">
+              <option>Member</option>
+              <option>Admin</option>
+            </select>
+          </label>
+          <button class="primary" type="submit">Continue</button>
+          <p id="authError" class="error"></p>
+        </form>
+      </section>
+
+      <section id="appView" class="hidden">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Workspace</p>
+            <h1>Team Task Manager</h1>
+          </div>
+          <div class="user-chip">
+            <span id="currentUser"></span>
+            <button id="logoutBtn" class="secondary">Logout</button>
+          </div>
+        </header>
+
+        <section class="stats-grid">
+          <article class="stat"><span>Total tasks</span><strong id="totalTasks">0</strong></article>
+          <article class="stat"><span>Todo</span><strong id="todoTasks">0</strong></article>
+          <article class="stat"><span>In progress</span><strong id="progressTasks">0</strong></article>
+          <article class="stat danger"><span>Overdue</span><strong id="overdueTasks">0</strong></article>
+        </section>
+
+        <section class="content-grid">
+          <div class="panel">
+            <div class="section-head">
+              <h2>Projects</h2>
+              <button id="newProjectBtn" class="primary admin-only">New project</button>
+            </div>
+            <div id="projectsList" class="list"></div>
+          </div>
+
+          <div class="panel">
+            <div class="section-head">
+              <h2>Tasks</h2>
+              <button id="newTaskBtn" class="primary">New task</button>
+            </div>
+            <div class="filters">
+              <select id="projectFilter"></select>
+              <select id="statusFilter">
+                <option value="">All statuses</option>
+                <option>Todo</option>
+                <option>In Progress</option>
+                <option>Done</option>
+              </select>
+            </div>
+            <div id="tasksList" class="task-list"></div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <dialog id="projectDialog">
+      <form id="projectForm" method="dialog" class="dialog-form">
+        <h2>New project</h2>
+        <label>Name<input name="name" required></label>
+        <label>Description<textarea name="description"></textarea></label>
+        <label>Members<select name="member_ids" id="projectMembers" multiple></select></label>
+        <div class="dialog-actions">
+          <button type="button" class="secondary" data-close>Cancel</button>
+          <button class="primary" type="submit">Create</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="taskDialog">
+      <form id="taskForm" method="dialog" class="dialog-form">
+        <h2>New task</h2>
+        <label>Project<select name="project_id" id="taskProject" required></select></label>
+        <label>Title<input name="title" required></label>
+        <label>Description<textarea name="description"></textarea></label>
+        <label>Assignee<select name="assignee_id" id="taskAssignee" required></select></label>
+        <label>Status<select name="status"><option>Todo</option><option>In Progress</option><option>Done</option></select></label>
+        <label>Due date<input name="due_date" type="date" required></label>
+        <div class="dialog-actions">
+          <button type="button" class="secondary" data-close>Cancel</button>
+          <button class="primary" type="submit">Create</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toast" class="toast hidden"></div>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
